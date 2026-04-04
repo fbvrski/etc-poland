@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-barlow: 'Barlow', 'Inter', sans-serif;
+    --font-inter: 'Inter', 'Helvetica Neue', sans-serif;
+  }
+  
+  body {
+    @apply bg-gray-50 text-gray-900 antialiased;
+    font-family: var(--font-inter);
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-barlow);
+    @apply font-bold;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all duration-200;
+  }
+  
+  .btn-lg {
+    @apply px-8 py-4 text-lg;
+  }
+  
+  .btn-sm {
+    @apply px-4 py-2 text-sm;
+  }
+  
+  .btn-primary {
+    @apply bg-[#2E7DE0] text-white hover:bg-[#1A4DB8] hover:shadow-lg;
+  }
+  
+  .btn-secondary {
+    @apply bg-[#EEF2F8] text-[#0F2D8A] border border-gray-300 hover:bg-white hover:border-[#1A4DB8];
+  }
+  
+  .btn-outline {
+    @apply bg-transparent text-white border border-white/50 hover:bg-white/10 hover:border-white/80;
+  }
+  
+  .container-custom {
+    @apply max-w-7xl mx-auto px-6;
+  }
+  
+  .section {
+    @apply py-16 md:py-24;
+  }
+  
+  .section-muted {
+    @apply bg-[#EEF2F8];
+  }
+  
+  .prose-custom {
+    @apply leading-relaxed space-y-4;
+  }
+  
+  .prose-custom p {
+    @apply text-gray-600;
+  }
+  
+  .prose-custom strong {
+    @apply text-gray-900 font-bold;
+  }
+}

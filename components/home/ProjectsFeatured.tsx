@@ -1,24 +1,27 @@
 import Link from "next/link";
 import { PROJECTS } from "@/lib/projects";
 
-const FEATURED_SLUGS = ["manufaktura-lodz", "galeria-mlociny", "ozas-vilnius"] as const;
+/** First N projects from `PROJECTS` appear on the homepage. Empty when portfolio is empty. */
+const FEATURED_COUNT = 3;
 
 export default function ProjectsFeatured() {
-  const projects = FEATURED_SLUGS.map((slug) => PROJECTS.find((p) => p.slug === slug)).filter(
-    Boolean,
-  ) as typeof PROJECTS;
+  const projects = PROJECTS.slice(0, FEATURED_COUNT);
+
+  if (projects.length === 0) {
+    return null;
+  }
 
   return (
     <section className="section">
       <div className="container-custom">
-        <div className="flex items-end justify-between mb-12">
+        <div className="mb-12 flex items-end justify-between">
           <h2 className="text-4xl font-display font-extrabold">Selected Projects</h2>
           <Link href="/projects" className="btn btn-secondary hidden md:inline-flex">
             View all projects
           </Link>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid gap-6 md:grid-cols-3">
           {projects.map((project) => (
             <Link
               key={project.slug}

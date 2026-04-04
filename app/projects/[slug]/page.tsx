@@ -2,10 +2,18 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ProjectMap from "@/components/projects/ProjectMap";
-import { PROJECTS, getProjectBySlug } from "@/lib/projects";
+import {
+  getMapSampleBySlug,
+  getProjectBySlug,
+  MAP_ONLY_PROJECTS,
+  PROJECTS,
+} from "@/lib/projects";
 
 export function generateStaticParams() {
-  return PROJECTS.map((p) => ({ slug: p.slug }));
+  return [
+    ...PROJECTS.map((p) => ({ slug: p.slug })),
+    ...MAP_ONLY_PROJECTS.map((p) => ({ slug: p.slug })),
+  ];
 }
 
 export async function generateMetadata({
@@ -15,13 +23,20 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const project = getProjectBySlug(slug);
-  if (!project) {
-    return { title: "Project — ETC Polska" };
+  if (project) {
+    return {
+      title: `${project.title} — ETC Polska`,
+      description: project.excerpt,
+    };
   }
-  return {
-    title: `${project.title} — ETC Polska`,
-    description: project.excerpt,
-  };
+  const sample = getMapSampleBySlug(slug);
+  if (sample) {
+    return {
+      title: `${sample.title} — ETC Polska`,
+      description: sample.excerpt,
+    };
+  }
+  return { title: "Project — ETC Polska" };
 }
 
 export default async function ProjectDetailPage({
@@ -31,14 +46,29 @@ export default async function ProjectDetailPage({
 }) {
   const { slug } = await params;
   const project = getProjectBySlug(slug);
-  if (!project) notFound();
+  const sample = project ? undefined : getMapSampleBySlug(slug);
+
+  if (!project && !sample) notFound();
+
+  const isSample = Boolean(sample);
+  const title = project?.title ?? sample!.title;
+  const type = project?.type ?? sample!.type;
+  const excerpt = project?.excerpt ?? sample!.excerpt;
+  const location = project?.location ?? sample!.location;
+  const gla = project?.gla ?? sample!.gla;
+  const year = project?.year ?? sample!.year;
+  const lat = project?.lat ?? sample!.lat;
+  const lng = project?.lng ?? sample!.lng;
+  const mapSlug = project?.slug ?? sample!.slug;
 
   const mapPoint = {
-    slug: project.slug,
-    title: project.title,
-    type: project.type,
-    lat: project.lat,
-    lng: project.lng,
+    slug: mapSlug,
+    title,
+    type,
+    lat,
+    lng,
+    mapOnly: isSample,
+    showPopupCta: false,
   };
 
   return (
@@ -50,25 +80,27 @@ export default async function ProjectDetailPage({
               ← All projects
             </Link>
           </nav>
-          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#7eb8ff]">
-            {project.type}
-          </p>
-          <h1 className="mb-4 text-4xl font-extrabold tracking-tight md:text-5xl">
-            {project.title}
-          </h1>
-          <p className="max-w-2xl text-lg text-white/90">{project.excerpt}</p>
+          {isSample ? (
+            <p className="mb-4 max-w-2xl rounded-lg border border-white/20 bg-white/10 px-4 py-3 text-sm leading-relaxed text-white/90">
+              <strong className="text-white">Illustrative sample.</strong> This page shows how a case study will look
+              once real projects are published — it is not a live client scheme.
+            </p>
+          ) : null}
+          <p className="mb-2 text-xs font-bold uppercase tracking-wider text-[#7eb8ff]">{type}</p>
+          <h1 className="mb-4 text-4xl font-extrabold tracking-tight md:text-5xl">{title}</h1>
+          <p className="max-w-2xl text-lg text-white/90">{excerpt}</p>
           <dl className="mt-8 flex flex-wrap gap-6 text-sm">
             <div>
               <dt className="text-white/60">Location</dt>
-              <dd className="font-semibold text-white">{project.location}</dd>
+              <dd className="font-semibold text-white">{location}</dd>
             </div>
             <div>
               <dt className="text-white/60">GLA</dt>
-              <dd className="font-semibold text-white">{project.gla}</dd>
+              <dd className="font-semibold text-white">{gla}</dd>
             </div>
             <div>
               <dt className="text-white/60">Year</dt>
-              <dd className="font-semibold text-white">{project.year}</dd>
+              <dd className="font-semibold text-white">{year}</dd>
             </div>
           </dl>
         </div>
@@ -78,12 +110,19 @@ export default async function ProjectDetailPage({
         <div className="container-custom max-w-4xl">
           <h2 className="mb-4 text-2xl font-extrabold">Overview</h2>
           <div className="prose-custom space-y-4">
-            <p>{project.excerpt}</p>
+            <p>{excerpt}</p>
             <p className="text-gray-600">
-              ETC Polska provided transport and traffic planning inputs for this development,
-              including access, parking strategy, and liaison with planning authorities as
-              required.
+              ETC Polska provides transport and traffic planning for developments of this kind — access, parking,
+              junction capacity, and liaison with highways and planning authorities as required.
             </p>
+            {isSample ? (
+              <p className="text-gray-600">
+                <Link href="/contact" className="font-semibold text-[#0F2D8A] hover:underline">
+                  Contact us
+                </Link>{" "}
+                to discuss a comparable instruction.
+              </p>
+            ) : null}
           </div>
         </div>
       </section>

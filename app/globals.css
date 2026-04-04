@@ -77,3 +77,157 @@
     @apply rounded-lg shadow-lg;
   }
 }
+
+/* Leaflet: custom markers & controls (no @apply — Leaflet owns DOM) */
+.etc-map-marker-wrap {
+  background: transparent !important;
+  border: none !important;
+}
+
+.etc-map-marker-dot {
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  margin: 3px;
+  border-radius: 50%;
+  background: #0f2d8a;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 12px rgba(15, 45, 138, 0.35);
+}
+
+.leaflet-container .leaflet-bar {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+}
+
+.leaflet-container .leaflet-bar a {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  border-color: #e5e7eb;
+  color: #0f2d8a;
+  font-weight: 600;
+}
+
+.leaflet-container .leaflet-bar a:hover {
+  background: #f3f4f6;
+  color: #0f2d8a;
+}
+
+.leaflet-popup-content {
+  margin: 12px 14px;
+  min-width: 160px;
+}
+
+.leaflet-popup-content a.etc-map-popup-btn {
+  color: #fff !important;
+}
+
+/* Hero: schematic “project assembling” (parking + access) */
+.hero-asm-stroke {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.38);
+  stroke-width: 2.25;
+  stroke-linecap: square;
+  stroke-linejoin: miter;
+}
+
+.hero-asm-draw-site {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: hero-asm-draw 1.15s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+}
+
+.hero-asm-draw-road {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: hero-asm-draw 0.85s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+}
+
+.hero-asm-draw-faint {
+  stroke: rgba(255, 255, 255, 0.14);
+  stroke-width: 1.5;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: hero-asm-draw 0.7s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+}
+
+.hero-asm-delay-a {
+  animation-delay: 0.35s;
+}
+.hero-asm-delay-b {
+  animation-delay: 0.55s;
+}
+.hero-asm-delay-c {
+  animation-delay: 0.72s;
+}
+.hero-asm-delay-d {
+  animation-delay: 0.95s;
+}
+
+@keyframes hero-asm-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.hero-asm-bay {
+  fill: rgba(126, 182, 255, 0.2);
+  stroke: rgba(255, 255, 255, 0.28);
+  stroke-width: 0.75;
+  opacity: 0;
+  transform-origin: center;
+  animation: hero-asm-bay-in 0.4s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+}
+
+@keyframes hero-asm-bay-in {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.hero-asm-building {
+  fill: rgba(46, 125, 224, 0.12);
+  stroke: rgba(255, 255, 255, 0.35);
+  stroke-width: 1.75;
+  opacity: 0;
+  transform-origin: 324px 200px;
+  animation: hero-asm-building-in 0.55s cubic-bezier(0.33, 1, 0.68, 1) 1.05s forwards;
+}
+
+@keyframes hero-asm-building-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-asm-draw-site,
+  .hero-asm-draw-road,
+  .hero-asm-draw-faint,
+  .hero-asm-bay,
+  .hero-asm-building {
+    animation: none !important;
+  }
+  .hero-asm-draw-site,
+  .hero-asm-draw-road,
+  .hero-asm-draw-faint {
+    stroke-dashoffset: 0 !important;
+  }
+  .hero-asm-bay,
+  .hero-asm-building {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

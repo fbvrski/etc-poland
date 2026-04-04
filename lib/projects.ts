@@ -11,89 +11,116 @@ export type Project = {
   excerpt: string;
 };
 
-export const PROJECTS: Project[] = [
+/** Map-only pins: listed on the map only; still have /projects/[slug] illustrative detail pages. */
+export type MapOnlyProject = {
+  slug: string;
+  title: string;
+  type: string;
+  /** Used with getMapSampleTypeFilters() when portfolio is empty. */
+  filterSlug: string;
+  lat: number;
+  lng: number;
+  mapOnly: true;
+  location: string;
+  gla: string;
+  year: string;
+  excerpt: string;
+};
+
+/** Filter chips for illustrative map pins (no real PROJECTS yet). */
+export function getMapSampleTypeFilters(): { slug: string; label: string }[] {
+  return [
+    { slug: "sample-parking", label: "Parking & access" },
+    { slug: "sample-traffic", label: "Traffic & studies" },
+    { slug: "sample-logistics", label: "Logistics & sites" },
+  ];
+}
+
+export const MAP_ONLY_PROJECTS: MapOnlyProject[] = [
   {
-    slug: "manufaktura-lodz",
-    title: "Manufaktura Łódź",
-    type: "Retail",
-    typeSlug: "retail",
-    year: "2018",
-    location: "Łódź, Poland",
-    gla: "110,000 m²",
-    lat: 51.7789,
-    lng: 19.4455,
-    excerpt:
-      "Major retail-led regeneration in the heart of Łódź, combining heritage mill buildings with new commercial space and public realm.",
-  },
-  {
-    slug: "galeria-mlociny",
-    title: "Galeria Młociny",
-    type: "Retail",
-    typeSlug: "retail",
-    year: "2017",
+    slug: "__map-sample-warsaw",
+    title: "Retail-led scheme (illustrative)",
+    type: "Parking & access — sample location",
+    filterSlug: "sample-parking",
+    lat: 52.2297,
+    lng: 21.0122,
+    mapOnly: true,
     location: "Warsaw, Poland",
-    gla: "75,000 m²",
-    lat: 52.2974,
-    lng: 20.9025,
+    gla: "Representative retail-led scheme",
+    year: "—",
     excerpt:
-      "Large-format retail and leisure scheme in north-west Warsaw with complex access, parking, and public transport integration.",
+      "Illustrative retail-led development — parking demand, access layout, and servicing strategy typical of schemes we support.",
   },
   {
-    slug: "bonarka-krakow",
-    title: "Bonarka",
-    type: "Retail",
-    typeSlug: "retail",
-    year: "2017",
+    slug: "__map-sample-krakow",
+    title: "Mixed-use development (illustrative)",
+    type: "Traffic study — sample location",
+    filterSlug: "sample-traffic",
+    lat: 50.0647,
+    lng: 19.945,
+    mapOnly: true,
     location: "Kraków, Poland",
-    gla: "92,000 m²",
-    lat: 50.023,
-    lng: 19.9755,
+    gla: "Mixed-use (retail / office / residential)",
+    year: "—",
     excerpt:
-      "Regional shopping centre serving Kraków with detailed traffic assessments and delivery strategy.",
+      "Illustrative city-centre mixed-use project — traffic generation, distribution of trips, and access design across uses.",
   },
   {
-    slug: "ozas-vilnius",
-    title: "Ozas Vilnius",
-    type: "Retail",
-    typeSlug: "retail",
-    year: "2018",
-    location: "Vilnius, Lithuania",
-    gla: "60,000 m²",
-    lat: 54.712,
-    lng: 25.2797,
+    slug: "__map-sample-berlin",
+    title: "Logistics / industrial (illustrative)",
+    type: "Site access — sample location",
+    filterSlug: "sample-logistics",
+    lat: 52.52,
+    lng: 13.405,
+    mapOnly: true,
+    location: "Berlin, Germany",
+    gla: "Industrial / logistics footprint",
+    year: "—",
     excerpt:
-      "Retail and leisure development in Vilnius with junction capacity and pedestrian connectivity focus.",
+      "Illustrative logistics or industrial estate — HGV access, circulation, and junction capacity for freight movements.",
   },
   {
-    slug: "echo-tymienieckiego",
-    title: "Echo Tymienieckiego",
-    type: "Mixed Use",
-    typeSlug: "mixed-use",
-    year: "2018",
-    location: "Łódź, Poland",
-    gla: "136,000 m²",
-    lat: 51.7465,
-    lng: 19.4517,
+    slug: "__map-sample-prague",
+    title: "Urban regeneration (illustrative)",
+    type: "Transport planning — sample location",
+    filterSlug: "sample-traffic",
+    lat: 50.0755,
+    lng: 14.4378,
+    mapOnly: true,
+    location: "Prague, Czechia",
+    gla: "Urban regeneration area",
+    year: "—",
     excerpt:
-      "Mixed retail, office, and residential scheme requiring coordinated transport modelling and access design.",
+      "Illustrative regeneration masterplan — walking, cycling, public transport links, and car parking policy.",
   },
   {
-    slug: "golf-spa-warsaw",
-    title: "Golf & Spa",
-    type: "Residential",
-    typeSlug: "residential",
-    year: "2018",
-    location: "Warsaw, Poland",
-    gla: "13,000 m²",
-    lat: 52.18,
-    lng: 20.95,
+    slug: "__map-sample-bratislava",
+    title: "Commercial car park (illustrative)",
+    type: "Parking layout — sample location",
+    filterSlug: "sample-parking",
+    lat: 48.1486,
+    lng: 17.1077,
+    mapOnly: true,
+    location: "Bratislava, Slovakia",
+    gla: "Structured / surface parking",
+    year: "—",
     excerpt:
-      "Residential and leisure development with emphasis on local network impacts and site access.",
+      "Illustrative commercial parking facility — bay layout, peak demand, and pedestrian links to the host building.",
   },
 ];
 
+/**
+ * Add real portfolio entries here (or replace with CMS fetch later).
+ * Each project gets a listing card, map marker, and /projects/[slug] page.
+ */
+export const PROJECTS: Project[] = [];
+
 export function getProjectBySlug(slug: string): Project | undefined {
   return PROJECTS.find((p) => p.slug === slug);
+}
+
+export function getMapSampleBySlug(slug: string): MapOnlyProject | undefined {
+  return MAP_ONLY_PROJECTS.find((p) => p.slug === slug);
 }
 
 export function getProjectTypeFilters(): { slug: string; label: string }[] {

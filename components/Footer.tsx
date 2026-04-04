@@ -1,14 +1,25 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0F2D8A] text-white py-20 mt-20">
+    <footer className="relative -mt-px bg-[#0F2D8A] py-16 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] md:py-20">
       <div className="container-custom">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           <div>
-            <div className="flex items-center justify-center bg-white/10 rounded-lg px-6 py-3 w-fit mb-4">
-              <span className="text-white font-display font-bold text-2xl tracking-tight">etc</span>
-            </div>
+            <Link
+              href="/"
+              className="mb-4 inline-block rounded-xl bg-white px-4 py-3 shadow-sm"
+              aria-label="ETC Polska — home"
+            >
+              <Image
+                src="/images/ETC_Polska_Big.png"
+                alt="ETC Polska"
+                width={260}
+                height={86}
+                className="h-11 w-auto max-w-[200px] object-contain object-left"
+              />
+            </Link>
             <p className="text-white/70 text-sm max-w-sm leading-relaxed">
               Expert transport consultancy for development projects across Europe and beyond. Since 2002.
             </p>
@@ -20,7 +31,6 @@ export default function Footer() {
               <Link href="/about" className="text-white/90 text-sm hover:text-white transition-colors">About</Link>
               <Link href="/services" className="text-white/90 text-sm hover:text-white transition-colors">Services</Link>
               <Link href="/projects" className="text-white/90 text-sm hover:text-white transition-colors">Projects</Link>
-              <Link href="/contact" className="text-white/90 text-sm hover:text-white transition-colors">Contact</Link>
             </nav>
           </div>
 

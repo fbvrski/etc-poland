@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -11,17 +12,21 @@ export default function Header() {
     { href: "/about", label: "About" },
     { href: "/services", label: "Services" },
     { href: "/projects", label: "Projects" },
-    { href: "/contact", label: "Contact" },
   ];
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
       <div className="container-custom">
         <div className="flex items-center justify-between h-20">
-          <Link href="/" className="flex items-center">
-            <div className="flex items-center justify-center bg-[#0F2D8A] rounded-lg px-6 py-3 shadow-sm">
-              <span className="text-white font-display font-bold text-2xl tracking-tight">etc</span>
-            </div>
+          <Link href="/" className="flex items-center py-1" aria-label="ETC Polska — home">
+            <Image
+              src="/images/ETC_Polska_Big.png"
+              alt="ETC Polska"
+              width={220}
+              height={72}
+              className="h-10 w-auto object-contain md:h-11"
+              priority
+            />
           </Link>
 
           <nav className="hidden lg:flex items-center gap-2">

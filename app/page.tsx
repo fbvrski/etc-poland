@@ -1,19 +1,15 @@
 import Hero from "@/components/home/Hero";
-import AboutIntro from "@/components/home/AboutIntro";
-import ServicesPreview from "@/components/home/ServicesPreview";
+import AboutServicesSection from "@/components/home/AboutServicesSection";
 import StatsBar from "@/components/home/StatsBar";
 import ProjectsFeatured from "@/components/home/ProjectsFeatured";
-import ContactCTA from "@/components/home/ContactCTA";
 
 export default function HomePage() {
   return (
     <main>
       <Hero />
-      <AboutIntro />
-      <ServicesPreview />
+      <AboutServicesSection />
       <StatsBar />
       <ProjectsFeatured />
-      <ContactCTA />
     </main>
   );
 }

@@ -27,7 +27,7 @@ export default function ContactClient() {
       } else {
         throw new Error("Failed to send");
       }
-    } catch (error) {
+    } catch {
       setFormState("error");
       setMessage("Failed to send message. Please try again.");
     }

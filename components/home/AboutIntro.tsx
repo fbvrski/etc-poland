@@ -18,7 +18,7 @@ export default function AboutIntro() {
             </h2>
             <div className="prose-custom space-y-4 mb-8">
               <p>
-                Since 2002, <strong>ETC Polska</strong> has supported developers, architects, and public institutions with expert traffic and transport planning. We've delivered projects across <strong>20+ countries</strong>, specializing in retail, residential, office, logistics, and mixed-use developments.
+                Since 2002, <strong>ETC Polska</strong> has supported developers, architects, and public institutions with expert traffic and transport planning. We have delivered projects across <strong>20+ countries</strong>, specializing in retail, residential, office, logistics, and mixed-use developments.
               </p>
               <p>
                 Our team provides strategic advice from early site selection through to detailed planning and infrastructure design.

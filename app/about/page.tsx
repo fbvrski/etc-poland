@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import AboutTimeline from "@/components/about/AboutTimeline";
 
 export const metadata: Metadata = {
   title: "About — ETC Polska",
@@ -45,6 +46,8 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      <AboutTimeline />
     </main>
   );
 }
